@@ -1,0 +1,24 @@
+# Append this server block to:
+# %USERPROFILE%\.config\herd\config\nginx\mysites.conf
+# Keep any existing server blocks in that file.
+server {
+    listen 0.0.0.0:5002;
+    server_name _;
+
+    location / {
+        # Herd serves this project with HTTPS on its loopback interface.
+        proxy_pass https://127.0.0.1:443;
+        proxy_ssl_server_name on;
+        proxy_ssl_name hadir-kantor-master.test;
+        proxy_ssl_verify off;
+
+        # Preserve the Herd virtual host while Laravel sees the LAN URL.
+        proxy_set_header Host hadir-kantor-master.test;
+        proxy_set_header X-Forwarded-Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Port $server_port;
+    }
+
+    access_log off;
+}
