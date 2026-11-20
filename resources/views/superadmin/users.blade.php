@@ -200,19 +200,6 @@
     @endif
 @endforeach
 
-<section class="mt-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-    <div class="max-w-2xl"><p class="text-sm font-semibold text-emerald-800">Pengaturan akses</p><h2 class="mt-0.5 font-display text-xl font-bold text-slate-900">Role pengguna</h2><p class="mt-1 text-sm leading-6 text-slate-500">Role tambahan langsung tersedia pada formulir akun dan template Excel. Superadmin adalah role sistem.</p></div>
-    <form method="POST" action="{{ route('superadmin.employee-roles.store') }}" class="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end">
-        @csrf
-        <label for="employee-role-name" class="min-w-0 flex-1 text-sm font-semibold text-slate-700">Nama role
-            <input id="employee-role-name" name="name" value="{{ old('name') }}" placeholder="Contoh: Operator SPBU" maxlength="100" required class="mt-1.5 w-full min-w-0 rounded-xl border border-slate-300 px-3.5 py-3 text-sm font-normal outline-none focus:border-emerald-700 focus:ring-4 focus:ring-emerald-700/10">
-            @error('name')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
-        </label>
-        <button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto"><x-icon name="users" class="h-4 w-4"/> Tambah role</button>
-    </form>
-    <div class="mt-5 flex flex-wrap gap-2">@foreach ($roles as $key => $label)<span class="max-w-full break-words rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900">{{ $label }} <span class="font-normal text-emerald-700">({{ $key }})</span></span>@endforeach</div>
-</section>
-
 <script>
     (() => {
         const nameInput = document.getElementById('new-user-name');
