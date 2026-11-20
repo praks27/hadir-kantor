@@ -105,7 +105,7 @@ class AdminReportController extends Controller
 
         return $this->xlsxDownload(
             $rows,
-            ['Tanggal', 'Nama karyawan', 'Username', 'NIK', 'Departemen', 'Lokasi kerja', 'Jam masuk', 'Jam pulang', 'Status'],
+            ['Tanggal', 'Nama karyawan', 'Username', 'NIK', 'Departemen', 'Lokasi masuk', 'Jam masuk', 'Jarak masuk (m)', 'Koordinat masuk', 'Lokasi pulang', 'Jam pulang', 'Jarak pulang (m)', 'Koordinat pulang', 'Status'],
             fn (Attendance $row) => [
                 $row->attendance_date->format('d-m-Y'),
                 $row->user?->name,
@@ -114,7 +114,12 @@ class AdminReportController extends Controller
                 $row->user?->department?->name,
                 $row->office?->name,
                 $row->check_in?->format('H:i'),
+                $row->distance_meters,
+                $this->coordinates($row->latitude, $row->longitude),
+                $row->checkOutOffice?->name ?? ($row->check_out ? $row->office?->name : null),
                 $row->check_out?->format('H:i'),
+                $row->check_out_distance_meters,
+                $this->coordinates($row->check_out_latitude, $row->check_out_longitude),
                 $row->status,
             ],
             'laporan-absensi.xlsx',
@@ -179,7 +184,7 @@ class AdminReportController extends Controller
     private function attendanceQuery(array $filters)
     {
         return Attendance::query()
-            ->with(['user.department', 'office'])
+            ->with(['user.department', 'office', 'checkOutOffice'])
             ->whereBetween('attendance_date', [$filters['from'], $filters['to']])
             ->when($filters['office_id'], fn ($query) => $query->where('office_id', $filters['office_id']))
             ->when($filters['status'], fn ($query) => $query->where('status', $filters['status']))
@@ -191,6 +196,11 @@ class AdminReportController extends Controller
             })))
             ->orderByDesc('attendance_date')
             ->orderBy('user_id');
+    }
+
+    private function coordinates($latitude, $longitude): ?string
+    {
+        return $latitude !== null && $longitude !== null ? $latitude.', '.$longitude : null;
     }
 
     private function leaveQuery(array $filters)

@@ -42,7 +42,11 @@ class AttendanceController extends Controller
 
     public function checkOut(Request $request): RedirectResponse
     {
-        $data = $request->validate(['latitude' => ['required', 'numeric', 'between:-90,90'], 'longitude' => ['required', 'numeric', 'between:-180,180']]);
+        $data = $request->validate([
+            'office_id' => ['required', 'integer', 'exists:office_settings,id'],
+            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
+        ]);
         $attendance = Attendance::where('user_id', Auth::id())->where('attendance_date', now()->toDateString())->first();
         if (! $attendance || ! $attendance->check_in) {
             return back()->withErrors(['attendance' => 'Catat absensi masuk terlebih dahulu.']);
@@ -51,17 +55,14 @@ class AttendanceController extends Controller
             return back()->withErrors(['attendance' => 'Absensi pulang hari ini sudah tercatat.']);
         }
 
-        $settings = $attendance->office ?? OfficeSetting::query()->first();
-        if (! $settings) {
-            return back()->withErrors(['attendance' => 'Lokasi kantor absensi masuk tidak tersedia. Hubungi superadmin.']);
-        }
+        $settings = OfficeSetting::findOrFail($data['office_id']);
         $distance = $this->distance((float) $data['latitude'], (float) $data['longitude'], $settings['latitude'], $settings['longitude']);
         if ($distance > $settings['radius_meters']) {
             return back()->withErrors(['attendance' => 'Lokasi Anda berada di luar radius kantor.']);
         }
 
         $attendance->update([
-            'office_id' => $settings->id,
+            'check_out_office_id' => $settings->id,
             'check_out' => now(),
             'check_out_latitude' => $data['latitude'],
             'check_out_longitude' => $data['longitude'],

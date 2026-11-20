@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Attendance extends Model
 {
     protected $fillable = [
-        'user_id', 'office_id', 'attendance_date', 'check_in', 'check_out', 'latitude', 'longitude', 'distance_meters',
+        'user_id', 'office_id', 'check_out_office_id', 'attendance_date', 'check_in', 'check_out', 'latitude', 'longitude', 'distance_meters',
         'check_out_latitude', 'check_out_longitude', 'check_out_distance_meters', 'status',
     ];
 
@@ -35,5 +35,10 @@ class Attendance extends Model
     public function office(): BelongsTo
     {
         return $this->belongsTo(OfficeSetting::class, 'office_id');
+    }
+
+    public function checkOutOffice(): BelongsTo
+    {
+        return $this->belongsTo(OfficeSetting::class, 'check_out_office_id');
     }
 }
