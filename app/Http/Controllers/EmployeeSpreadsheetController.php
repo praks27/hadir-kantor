@@ -77,7 +77,7 @@ class EmployeeSpreadsheetController extends Controller
             ['role', 'Pilih role dari daftar pada sheet Referensi. Jika dikosongkan, role Karyawan digunakan.'],
             ['password', 'Wajib diisi. Gunakan kata sandi awal yang kuat dan sampaikan kepada karyawan.'],
             ['Pengaturan otomatis', 'Username dan ID dibuat otomatis. Akun aktif dan jatah cuti tahunan 12 hari.'],
-            ['Cara impor', 'Baris 2 adalah contoh: ganti atau hapus sebelum impor agar akun contoh tidak dibuat. Isi satu baris untuk setiap karyawan. Gunakan dropdown pada kolom departemen, approval_level, office, dan role untuk menghindari salah input. Simpan sebagai .xlsx, lalu unggah melalui menu Superadmin > Pengguna > Impor Excel. Maksimal 5.000 baris dan 10 MB.'],
+            ['Cara impor', 'Baris 2 adalah contoh: ganti atau hapus sebelum impor agar akun contoh tidak dibuat. Isi satu baris untuk setiap karyawan. Gunakan dropdown pada kolom departemen, approval_level, office, dan role untuk menghindari salah input. Simpan sebagai .xlsx, lalu unggah melalui menu Superadmin > Pengguna > Impor Excel. Maksimal 5.000 baris data dan 10 MB.'],
         ];
         $referenceHeaders = ['Departemen', 'Tingkat approval', 'Lokasi kerja', 'Role pengguna'];
         $referenceColumns = [$departments, array_values($approvalLevels), $offices, array_values($roles)];
