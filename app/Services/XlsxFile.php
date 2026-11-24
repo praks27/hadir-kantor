@@ -136,7 +136,6 @@ class XlsxFile
             $sheet = self::parseXml($sheetContents);
             $sheet->registerXPathNamespace('x', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
             $rows = [];
-            $dataRowCount = 0;
             foreach ($sheet->xpath('//x:sheetData/x:row') ?: [] as $row) {
                 $row->registerXPathNamespace('x', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
                 $rowNumber = (int) $row['r'];
@@ -158,9 +157,6 @@ class XlsxFile
                 }
 
                 $hasData = count(array_filter($cells, fn (string $value) => $value !== '')) > 0;
-                if ($rowNumber > 1 && $hasData && ++$dataRowCount > 5000) {
-                    throw new RuntimeException('Maksimal impor adalah 5.000 baris data per file.');
-                }
                 if ($rowNumber > 1 && ! $hasData) {
                     continue;
                 }

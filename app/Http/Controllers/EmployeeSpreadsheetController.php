@@ -160,6 +160,7 @@ class EmployeeSpreadsheetController extends Controller
         $errors = [];
         $seen = ['username' => [], 'email' => [], 'nik' => []];
         $seenIds = [];
+        $dataRowCount = 0;
 
         foreach (array_slice($rows, 1) as $row) {
             $cells = $row['cells'];
@@ -169,6 +170,9 @@ class EmployeeSpreadsheetController extends Controller
             }
             if (count(array_filter($values, fn ($value) => $value !== '')) === 0) {
                 continue;
+            }
+            if (++$dataRowCount > 5000) {
+                return back()->withErrors(['file' => 'Maksimal impor adalah 5.000 baris data karyawan per file.']);
             }
 
             $line = $row['row'];
