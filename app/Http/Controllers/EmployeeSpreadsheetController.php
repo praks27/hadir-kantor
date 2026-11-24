@@ -168,7 +168,9 @@ class EmployeeSpreadsheetController extends Controller
             foreach (self::HEADERS as $heading) {
                 $values[$heading] = isset($headers[$heading]) ? ($cells[$headers[$heading]] ?? '') : '';
             }
-            if (count(array_filter($values, fn ($value) => $value !== '')) === 0) {
+            // Ignore formatting or stray values in optional columns at the bottom of an Excel sheet.
+            // A row is meaningful when it has an employee name, password, or an existing user ID.
+            if ($values['name'] === '' && $values['password'] === '' && $values['id'] === '') {
                 continue;
             }
             if (++$dataRowCount > 5000) {
