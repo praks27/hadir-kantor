@@ -42,8 +42,8 @@
                 @error('position')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
             </label>
             <label for="new-user-password" class="min-w-0 text-sm font-semibold text-slate-700">Kata sandi awal <span class="text-rose-600">*</span>
-                <input id="new-user-password" type="password" name="password" required minlength="8" autocomplete="new-password" aria-describedby="new-user-password-help" class="mt-1.5 w-full min-w-0 rounded-xl border border-slate-300 px-3.5 py-3 text-sm font-normal outline-none focus:border-emerald-700 focus:ring-4 focus:ring-emerald-700/10">
-                <span id="new-user-password-help" class="mt-1 block text-xs font-normal text-slate-500">Minimal 8 karakter.</span>
+                <input id="new-user-password" type="password" name="password" required autocomplete="new-password" aria-describedby="new-user-password-help" class="mt-1.5 w-full min-w-0 rounded-xl border border-slate-300 px-3.5 py-3 text-sm font-normal outline-none focus:border-emerald-700 focus:ring-4 focus:ring-emerald-700/10">
+                <span id="new-user-password-help" class="mt-1 block text-xs font-normal text-slate-500">Wajib diisi.</span>
                 @error('password')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
             </label>
             <label for="new-user-department" class="min-w-0 text-sm font-semibold text-slate-700">Departemen <span class="text-xs font-normal text-slate-400">opsional</span>

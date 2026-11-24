@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeSpreadsheetController;
 use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,12 @@ Route::middleware('guest')->group(function () {
         ->middleware('throttle:30,1')
         ->name('login.leave-notifications');
     Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+    Route::get('/forgot-password', [PasswordResetController::class, 'requestForm'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])
+        ->middleware('throttle:5,1')->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'resetForm'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])
+        ->middleware('throttle:5,1')->name('password.update');
 });
 Route::post('/logout', [AuthController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::middleware('auth')->group(function () {

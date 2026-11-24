@@ -27,6 +27,8 @@
             <p class="text-sm font-semibold uppercase tracking-[.16em] text-emerald-800">Selamat datang kembali</p>
             <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-slate-900">Masuk ke akun Anda</h2>
             <p class="mt-2 text-slate-500">Masuk menggunakan username dan kata sandi Anda.</p>
+            @if (session('status'))<p role="status" class="mt-5 rounded-xl bg-emerald-50 p-3 text-sm text-emerald-800">{{ session('status') }}</p>@endif
+            @if ($errors->any())<p role="alert" class="mt-5 rounded-xl bg-rose-50 p-3 text-sm text-rose-700">{{ $errors->first() }}</p>@endif
             <form method="POST" action="{{ route('login.store') }}" class="mt-8 space-y-5">
                 @csrf
                 <label class="block text-sm font-semibold text-slate-700">Username
@@ -36,6 +38,7 @@
                     <span class="group relative mt-2 block"><x-icon name="shield" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 transition-colors group-focus-within:text-emerald-700"/><input id="login-password" type="password" name="password" autocomplete="current-password" required class="w-full border border-[#e1e7df] bg-[#fbfcf9] py-3.5 pl-12 pr-12 font-normal outline-none placeholder:text-slate-400 focus:border-emerald-600 focus:bg-white focus:ring-4 focus:ring-emerald-700/10" placeholder="Masukkan kata sandi"><button id="toggle-password-visibility" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-emerald-50 hover:text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-600/30"><svg data-eye-show viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true"><path d="M2.5 12s3.3-6 9.5-6 9.5 6 9.5 6-3.3 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg><svg data-eye-hide viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="hidden h-5 w-5" aria-hidden="true"><path d="m3 3 18 18M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.5 10.5 0 0 1 12 5c6.2 0 9.5 7 9.5 7a13.6 13.6 0 0 1-3.2 3.8M6.2 6.2C3.8 7.8 2.5 12 2.5 12s3.3 7 9.5 7c1.1 0 2.1-.2 3-.5"/></svg></button></span>
                 </label>
                 <label class="flex items-center gap-2 text-sm text-slate-500"><input type="checkbox" name="remember" class="rounded border-slate-300 text-emerald-800 focus:ring-emerald-700"> Ingat saya</label>
+                <div class="-mt-2 text-right"><a href="{{ route('password.request') }}" class="text-sm font-semibold text-emerald-800 hover:text-emerald-950">Lupa kata sandi?</a></div>
                 <button class="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-3.5 font-semibold text-white shadow-lg shadow-emerald-950/10 transition hover:bg-emerald-900 hover:shadow-xl">Masuk ke dashboard <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"/></button>
             </form>
             <p class="mt-8 text-center text-xs leading-5 text-slate-400">Dengan masuk, Anda menyetujui pencatatan waktu dan lokasi kehadiran sesuai kebijakan perusahaan.</p>

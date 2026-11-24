@@ -204,7 +204,7 @@ class SuperAdminController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'alpha_dash', 'max:50', 'unique:users,username'],
             'email' => ['nullable', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string'],
             'annual_leave_entitlement' => ['nullable', 'integer', 'between:0,366'],
             'nik' => ['nullable', 'string', 'max:30', 'unique:users,nik'],
             'department_id' => ['nullable', 'exists:departments,id'],
@@ -256,7 +256,7 @@ class SuperAdminController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['nullable', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user)],
-            'password' => ['nullable', 'string', 'min:8'],
+            'password' => ['nullable', 'string'],
             'annual_leave_entitlement' => ['required', 'integer', 'between:0,366'],
             'nik' => ['nullable', 'string', 'max:30', Rule::unique('users', 'nik')->ignore($user)],
             'department_id' => ['nullable', 'exists:departments,id'],

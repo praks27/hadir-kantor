@@ -68,14 +68,14 @@ class EmployeeSpreadsheetController extends Controller
         $offices = OfficeSetting::query()->orderBy('name')->pluck('name')->all();
         $roles = app(MenuAccessService::class)->managedRoles();
         $guide = [
-            ['name', 'Wajib diisi. Nama lengkap karyawan. Username dibuat otomatis dari nama.'],
+            ['name', 'Wajib diisi. Nama lengkap karyawan. Username dibuat otomatis dari nama depan dan dua angka acak, sama seperti saat menambah pengguna melalui website.'],
             ['nik', 'Opsional. NIK karyawan dan harus unik jika diisi.'],
             ['position', 'Opsional. Jabatan karyawan.'],
             ['department', 'Opsional. Pilih nama departemen dari daftar pada sheet Referensi.'],
             ['approval_level', 'Opsional. Pilih tingkat approval dari daftar pada sheet Referensi. Jika diisi, departemen wajib dipilih. Tingkat SPBU/LPG juga memerlukan lokasi kerja yang sesuai.'],
             ['office', 'Opsional. Pilih lokasi kerja dari daftar pada sheet Referensi. Wajib untuk tingkat approval SPBU/LPG.'],
             ['role', 'Pilih role dari daftar pada sheet Referensi. Jika dikosongkan, role Karyawan digunakan.'],
-            ['password', 'Wajib diisi dengan kata sandi minimal 8 karakter. Gunakan kata sandi awal yang kuat dan sampaikan kepada karyawan.'],
+            ['password', 'Wajib diisi. Gunakan kata sandi awal yang kuat dan sampaikan kepada karyawan.'],
             ['Pengaturan otomatis', 'Username dan ID dibuat otomatis. Akun aktif dan jatah cuti tahunan 12 hari.'],
             ['Cara impor', 'Baris 2 adalah contoh: ganti atau hapus sebelum impor agar akun contoh tidak dibuat. Isi satu baris untuk setiap karyawan. Gunakan dropdown pada kolom departemen, approval_level, office, dan role untuk menghindari salah input. Simpan sebagai .xlsx, lalu unggah melalui menu Superadmin > Pengguna > Impor Excel. Maksimal 5.000 baris dan 10 MB.'],
         ];
@@ -212,8 +212,8 @@ class EmployeeSpreadsheetController extends Controller
                 default => null,
             };
             $passwordRules = $user
-                ? ['nullable', 'string', 'min:8']
-                : ['required', 'string', 'min:8'];
+                ? ['nullable', 'string']
+                : ['required', 'string'];
             $validator = Validator::make($data + ['is_active' => $values['is_active'], 'password' => $values['password']], [
                 'name' => ['required', 'string', 'max:255'],
                 'username' => ['required', 'alpha_dash', 'max:50', Rule::unique('users', 'username')->ignore($user?->id)],
@@ -345,10 +345,10 @@ class EmployeeSpreadsheetController extends Controller
     private function generateUsername(string $name, array $seenUsernames): string
     {
         $firstName = preg_split('/\s+/u', trim($name))[0] ?? '';
-        $base = Str::limit(Str::slug($firstName) ?: 'karyawan', 44, '');
+        $base = Str::limit(Str::slug($firstName) ?: 'karyawan', 45, '');
 
         do {
-            $username = $base.random_int(1000, 99999);
+            $username = $base.random_int(10, 99);
         } while (User::query()->where('username', $username)->exists() || isset($seenUsernames[$username]));
 
         return $username;
