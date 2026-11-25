@@ -12,7 +12,7 @@
     <section class="relative hidden overflow-hidden bg-[#5b84a8] p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
         <div class="soft-float absolute -right-28 -top-28 h-96 w-96 rounded-full border border-white/15"></div>
         <div class="soft-float absolute -right-12 -top-12 h-64 w-64 rounded-full border border-white/15" style="animation-delay:-3s"></div>
-        <a href="/" class="relative flex items-center gap-3 font-display text-xl font-extrabold tracking-tight"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#e5eff8] text-[#355773] shadow-sm">H</span> HRIS TAT</a>
+        <a href="/" class="relative flex items-center gap-3 font-display text-xl font-extrabold tracking-tight"><img src="{{ asset('images/Logo -TAT.png') }}" alt="Logo HRIS TAT" class="h-10 w-10 shrink-0 object-contain"> HRIS TAT</a>
         <div class="relative max-w-xl pb-10">
             <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-[#eef5fb]"><x-icon name="check" class="h-4 w-4"/> Kehadiran lebih teratur</span>
             <h1 class="font-display text-5xl font-bold leading-[1.12] xl:text-6xl">Hari kerja dimulai dengan <span class="text-[#e5eff8]">langkah yang tepat.</span></h1>
@@ -22,7 +22,7 @@
     </section>
     <section class="flex items-center justify-center px-6 py-12 sm:px-10">
         <div class="w-full max-w-md">
-            <a href="/" class="mb-8 flex items-center gap-3 font-display text-lg font-extrabold tracking-tight lg:hidden"><span class="grid h-9 w-9 place-items-center rounded-xl bg-[#5b84a8] text-white shadow-sm">H</span> HRIS TAT</a>
+            <a href="/" class="mb-8 flex items-center gap-3 font-display text-lg font-extrabold tracking-tight lg:hidden"><img src="{{ asset('images/Logo -TAT.png') }}" alt="Logo HRIS TAT" class="h-9 w-9 shrink-0 object-contain"> HRIS TAT</a>
             <div class="rounded-[2rem] border border-white/80 bg-white/75 p-7 shadow-[0_24px_70px_rgba(48,68,54,0.09)] backdrop-blur-xl sm:p-9">
             <p class="text-sm font-semibold uppercase tracking-[.16em] text-emerald-800">Selamat datang kembali</p>
             <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-slate-900">Masuk ke akun Anda</h2>

@@ -5,7 +5,7 @@
 @section('body')
 <main class="page-enter mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:px-10 lg:py-10">
     <header class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 pb-5">
-        <div><a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-display text-lg font-extrabold tracking-tight"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#5b84a8] text-white shadow-sm">H</span> HRIS TAT</a><p class="mt-3 flex items-center gap-2 text-sm text-slate-500"><x-icon name="file" class="h-4 w-4"/> Perizinan karyawan</p></div>
+        <div><a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-display text-lg font-extrabold tracking-tight"><img src="{{ asset('images/Logo -TAT.png') }}" alt="Logo HRIS TAT" class="h-10 w-10 shrink-0 object-contain"> HRIS TAT</a><p class="mt-3 flex items-center gap-2 text-sm text-slate-500"><x-icon name="file" class="h-4 w-4"/> Perizinan karyawan</p></div>
         <a href="{{ route('dashboard') }}" class="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-emerald-50">← Kembali ke dashboard</a>
     </header>
 
