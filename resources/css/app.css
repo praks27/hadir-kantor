@@ -173,6 +173,17 @@ html.dark .theme-toggle { color: #d9e8dc; background: rgb(30 43 37 / 92%); borde
 html.dark .theme-icon-light { display: none; }
 html.dark .theme-icon-dark { display: block; }
 
+.brand-logo {
+    transform-origin: center;
+    animation: brand-logo-float 3.8s ease-in-out infinite;
+    transition: filter 180ms ease;
+}
+a:hover .brand-logo { filter: drop-shadow(0 4px 8px rgb(53 116 166 / 35%)); }
+@keyframes brand-logo-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-2px) rotate(-2deg); }
+}
+
 .page-loader { 
     position: fixed;
     z-index: 200;

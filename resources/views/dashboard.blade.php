@@ -7,7 +7,7 @@
         <x-app-sidebar />
     <main class="mx-auto w-full max-w-7xl px-5 py-6 sm:px-8 lg:px-10 lg:py-9">
         <header class="flex items-center justify-between border-b border-slate-200/80 pb-5">
-            <div class="flex items-center gap-3 lg:hidden"><img src="{{ asset('images/Logo -TAT.png') }}" alt="Logo HRIS TAT" class="h-9 w-9 shrink-0 object-contain"><span class="font-display font-extrabold">HRIS TAT</span></div>
+            <div class="flex items-center gap-3 lg:hidden"><img src="{{ asset('images/Logo -TAT.png') }}" alt="Logo HRIS TAT" class="h-9 w-9 shrink-0 object-contain brand-logo"><span class="font-display font-extrabold">HRIS TAT</span></div>
             <div class="hidden lg:block"><p class="text-sm text-slate-500">Portal karyawan</p><p class="font-semibold text-slate-800">Ringkasan kehadiran</p></div>
             <div class="flex items-center gap-3"><div class="hidden text-right sm:block"><p class="text-sm font-semibold">{{ auth()->user()->name }}</p><p class="text-xs text-slate-500">{{ auth()->user()->position ?: 'Karyawan' }}</p></div><div class="grid h-10 w-10 place-items-center rounded-full bg-[#dceafa] font-bold text-emerald-950">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</div><form method="POST" action="{{ route('logout') }}">@csrf<button class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-500 hover:bg-white hover:text-slate-900">Keluar</button></form></div>
         </header>

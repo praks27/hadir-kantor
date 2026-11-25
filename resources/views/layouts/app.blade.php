@@ -59,7 +59,7 @@
     <div id="page-loader" class="page-loader is-hidden" role="status" aria-label="Sedang memuat halaman" aria-live="polite" aria-hidden="true">
         <canvas data-three-loader aria-hidden="true" class="page-loader-canvas"></canvas>
         <div class="page-loader-content">
-            <img src="{{ asset('images/Logo -TAT.png') }}" alt="" class="h-12 w-12 object-contain" aria-hidden="true">
+            <img src="{{ asset('images/Logo -TAT.png') }}" alt="" class="h-12 w-12 object-contain brand-logo" aria-hidden="true">
             <p class="page-loader-title">{{ config('app.name') }}</p>
             <p class="page-loader-caption">Menyiapkan halaman Anda</p>
             <div class="page-loader-meter">
