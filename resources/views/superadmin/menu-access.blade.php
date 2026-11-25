@@ -11,7 +11,7 @@
 
         <form method="GET" action="{{ route('superadmin.menu-access') }}" class="mt-5 flex flex-col gap-3 sm:flex-row">
             <label class="flex-1 text-sm font-semibold text-slate-700">Role
-                <select name="role" class="mt-2 w-full rounded-xl border border-slate-200 bg-[#fbfcf9] px-4 py-3 text-sm font-normal" onchange="this.form.submit()">
+                <select name="role" class="mt-2 w-full rounded-xl border border-slate-200 bg-[#f9fbfe] px-4 py-3 text-sm font-normal" onchange="this.form.submit()">
                     @foreach ($roles as $key => $label)
                         <option value="{{ $key }}" @selected($selectedRole === $key)>{{ $label }}</option>
                     @endforeach
@@ -30,7 +30,7 @@
                     <span class="min-w-0 flex-1"><span class="block break-words text-sm font-bold text-slate-800">{{ $label }}</span><span class="mt-1.5 block break-words text-xs leading-5 text-slate-600">{{ $menuDescriptions[$key] }} Default untuk role {{ strtolower($roles[$selectedRole]) }}.</span></span>
                 </label>
             @endforeach
-            <button class="inline-flex w-full items-center justify-center rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto">Simpan pengaturan umum</button>
+            <button class="inline-flex w-full items-center justify-center rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto">Simpan pengaturan umum</button>
         </form>
     </article>
 
@@ -42,7 +42,7 @@
         <form method="GET" action="{{ route('superadmin.menu-access') }}" class="mt-5 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end">
             <input type="hidden" name="role" value="{{ $selectedRole }}">
             <label class="flex-1 text-sm font-semibold text-slate-700">Karyawan
-                <select name="user" class="mt-2 w-full min-w-0 rounded-xl border border-slate-200 bg-[#fbfcf9] px-4 py-3 text-sm font-normal">
+                <select name="user" class="mt-2 w-full min-w-0 rounded-xl border border-slate-200 bg-[#f9fbfe] px-4 py-3 text-sm font-normal">
                     <option value="">Pilih karyawan</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}" @selected($selectedUser?->id === $user->id)>{{ $user->name }} · {{ $user->username }} ({{ $roles[$user->role] ?? ucfirst($user->role) }})</option>
@@ -68,7 +68,7 @@
                     </label>
                 @endforeach
                 <div class="flex flex-col gap-2 sm:flex-row">
-                    <button class="inline-flex w-full items-center justify-center rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto">Simpan pengaturan khusus</button>
+                    <button class="inline-flex w-full items-center justify-center rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto">Simpan pengaturan khusus</button>
                     <button name="reset_to_role" value="1" formnovalidate class="inline-flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 sm:w-auto">Ikuti semua pengaturan role</button>
                 </div>
             </form>

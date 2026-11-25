@@ -18,15 +18,15 @@
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
             <label class="block text-sm font-semibold text-slate-700">Email
-                <input type="email" name="email" value="{{ old('email', $email) }}" autocomplete="email" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#fbfcf9] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
+                <input type="email" name="email" value="{{ old('email', $email) }}" autocomplete="email" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#f9fbfe] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
             </label>
             <label class="block text-sm font-semibold text-slate-700">Kata sandi baru
-                <input type="password" name="password" autocomplete="new-password" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#fbfcf9] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
+                <input type="password" name="password" autocomplete="new-password" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#f9fbfe] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
             </label>
             <label class="block text-sm font-semibold text-slate-700">Ulangi kata sandi baru
-                <input type="password" name="password_confirmation" autocomplete="new-password" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#fbfcf9] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
+                <input type="password" name="password_confirmation" autocomplete="new-password" required class="mt-2 w-full rounded-xl border border-slate-300 bg-[#f9fbfe] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10">
             </label>
-            <button class="w-full rounded-xl bg-[#567765] px-5 py-3.5 font-semibold text-white transition hover:bg-emerald-900">Simpan kata sandi baru</button>
+            <button class="w-full rounded-xl bg-[#5b84a8] px-5 py-3.5 font-semibold text-white transition hover:bg-emerald-900">Simpan kata sandi baru</button>
         </form>
     </section>
 </main>

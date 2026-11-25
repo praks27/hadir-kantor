@@ -16,7 +16,7 @@
             <input name="name" value="{{ old('name') }}" maxlength="100" required placeholder="Contoh: Keuangan" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-normal outline-none focus:border-emerald-700">
             @error('name')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
         </label>
-        <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-900 sm:mt-7"><x-icon name="check" class="h-4 w-4"/> Tambah departemen</button>
+        <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-900 sm:mt-7"><x-icon name="check" class="h-4 w-4"/> Tambah departemen</button>
     </form>
 </section>
 

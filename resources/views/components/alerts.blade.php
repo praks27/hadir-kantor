@@ -18,7 +18,7 @@
         const tones = {
             success: {
                 background: '#f4faf4', border: '#cfe5d1', color: '#244d31', iconBackground: '#e5f3e7', iconColor: '#26703a',
-                dark: { background: '#1c3024', border: '#456b4c', color: '#c4e8c9', iconBackground: '#294333', iconColor: '#a8d5b1' },
+                dark: { background: '#1c3024', border: '#456b4c', color: '#c4e8c9', iconBackground: '#29445f', iconColor: '#a8cceb' },
             },
             error: {
                 background: '#fff7f7', border: '#f3cccc', color: '#762c2c', iconBackground: '#fde8e8', iconColor: '#c33d3d',

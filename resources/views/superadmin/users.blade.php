@@ -8,7 +8,7 @@
     <section class="employee-admin-hero rounded-3xl border border-emerald-100 bg-gradient-to-br from-white to-emerald-50/70 p-5 shadow-sm sm:p-7">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div class="min-w-0"><p class="text-sm font-semibold text-emerald-800">Administrasi pengguna</p><h2 class="mt-1 font-display text-2xl font-bold tracking-tight text-slate-900">Karyawan dan role</h2><p class="mt-1 text-sm leading-6 text-slate-600">Kelola akun, penempatan, dan hak akses pengguna.</p></div>
-            <a href="#form-tambah-akun" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#567765] px-4 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="users" class="h-4 w-4"/> Tambah akun</a>
+            <a href="#form-tambah-akun" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#5b84a8] px-4 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="users" class="h-4 w-4"/> Tambah akun</a>
         </div>
         <div class="mt-5 grid gap-3 sm:grid-cols-2">
             <div class="rounded-2xl border border-white bg-white/90 p-4"><p class="text-xs font-medium text-slate-500">{{ request()->filled('q') ? 'Hasil pencarian' : 'Total pengguna' }}</p><p class="mt-1 text-2xl font-bold text-slate-900">{{ number_format($users->total()) }}</p></div>
@@ -67,7 +67,7 @@
                 @error('annual_leave_entitlement')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
             </label>
             <label class="flex min-w-0 items-center gap-3 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-slate-700 sm:mt-5"><input type="hidden" name="is_active" value="0"><input type="checkbox" name="is_active" value="1" @checked(old('is_active', '1')) class="h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-800 focus:ring-emerald-700"><span><span class="block font-semibold">Akun aktif</span><span class="text-xs text-slate-500">Dapat langsung digunakan.</span></span></label>
-            <div class="flex flex-col justify-end gap-3 sm:col-span-2 xl:col-span-3 sm:flex-row sm:items-center sm:justify-between"><p class="text-xs text-slate-500"><span class="text-rose-600">*</span> Wajib diisi. Approval memerlukan departemen; approver SPBU/LPG juga memerlukan lokasi yang sesuai.</p><button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto"><x-icon name="users" class="h-4 w-4"/> Buat akun</button></div>
+            <div class="flex flex-col justify-end gap-3 sm:col-span-2 xl:col-span-3 sm:flex-row sm:items-center sm:justify-between"><p class="text-xs text-slate-500"><span class="text-rose-600">*</span> Wajib diisi. Approval memerlukan departemen; approver SPBU/LPG juga memerlukan lokasi yang sesuai.</p><button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto"><x-icon name="users" class="h-4 w-4"/> Buat akun</button></div>
         </form>
     </section>
 
@@ -84,7 +84,7 @@
             <label for="employee-import-file" class="block text-sm font-semibold text-slate-800">Pilih file Excel (.xlsx)</label>
             <div class="mt-2 flex min-w-0 flex-col gap-3 md:flex-row md:items-center">
                 <input id="employee-import-file" type="file" name="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required aria-describedby="employee-import-help" class="employee-import-file block min-w-0 flex-1 rounded-xl border border-slate-300 bg-white text-sm text-slate-600 file:mr-3 file:border-0 file:bg-emerald-50 file:px-3 file:py-3 file:text-sm file:font-semibold file:text-emerald-900 hover:file:bg-emerald-100">
-                <button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 md:w-auto"><x-icon name="upload" class="h-4 w-4"/> Impor karyawan</button>
+                <button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 md:w-auto"><x-icon name="upload" class="h-4 w-4"/> Impor karyawan</button>
             </div>
             <p id="employee-import-help" class="mt-2 text-xs leading-5 text-slate-500">Maksimal 5.000 baris dan 10 MB. Impor dibatalkan seluruhnya jika ada baris yang tidak valid.</p>
             @error('file')<p class="mt-2 text-sm text-rose-700">{{ $message }}</p>@enderror
@@ -150,7 +150,7 @@
                 <input id="employee-role-name" name="name" value="{{ old('name') }}" placeholder="Contoh: Operator SPBU" maxlength="100" required class="mt-1.5 w-full min-w-0 rounded-xl border border-slate-300 px-3.5 py-3 text-sm font-normal outline-none focus:border-emerald-700 focus:ring-4 focus:ring-emerald-700/10">
                 @error('name')<span class="mt-1 block text-xs font-normal text-rose-600">{{ $message }}</span>@enderror
             </label>
-            <button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto"><x-icon name="users" class="h-4 w-4"/> Tambah role</button>
+            <button class="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900 sm:w-auto"><x-icon name="users" class="h-4 w-4"/> Tambah role</button>
         </form>
         <div class="mt-5 flex flex-wrap gap-2">@foreach ($roles as $key => $label)<span class="max-w-full break-words rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-900">{{ $label }} <span class="font-normal text-emerald-700">({{ $key }})</span></span>@endforeach</div>
     </section>

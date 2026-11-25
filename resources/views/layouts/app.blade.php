@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#f6f7f2" id="theme-color-meta">
+    <meta name="theme-color" content="#f4f7fb" id="theme-color-meta">
     <title>@yield('title', config('app.name')) · {{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
@@ -26,7 +26,7 @@
         .toastify:not(.on) { animation: toastify-exit 220ms ease-in both; }
         .toastify .toast-close { position: absolute; top: 12px; right: 12px; display: grid; width: 32px; height: 32px; place-items: center; padding: 0; border: 0; border-radius: 9px; background: transparent; color: #64748b; font-size: 15px; line-height: 1; cursor: pointer; }
         .toastify .toast-close:hover { background: rgb(148 163 184 / 14%); color: #334155; }
-        .toastify .toast-close:focus-visible { outline: 2px solid rgb(86 119 101 / 45%); outline-offset: 1px; }
+        .toastify .toast-close:focus-visible { outline: 2px solid rgb(91 132 168 / 45%); outline-offset: 1px; }
         .toastify-icon { animation: toastify-icon-pop 460ms cubic-bezier(.2,.85,.25,1.25) 80ms both; }
         .toastify.app-toast-success::before, .toastify.app-toast-error::before, .app-toast-fallback.app-toast-success::before, .app-toast-fallback.app-toast-error::before { content: ''; position: absolute; right: 0; bottom: 0; left: 0; height: 6px; opacity: .2; }
         .toastify.app-toast-success::after, .toastify.app-toast-error::after, .app-toast-fallback.app-toast-success::after, .app-toast-fallback.app-toast-error::after { content: ''; position: absolute; right: 0; bottom: 0; left: 0; height: 6px; transform-origin: left center; animation: toastify-countdown 5s linear both; }
@@ -54,7 +54,7 @@
         });
     </script>
 </head>
-<body class="min-h-screen bg-[#f6f7f2] font-sans text-slate-800 antialiased">
+<body class="min-h-screen bg-[#f4f7fb] font-sans text-slate-800 antialiased">
     <div id="page-loader" class="page-loader is-hidden" role="status" aria-label="Sedang memuat halaman" aria-live="polite" aria-hidden="true">
         <canvas data-three-loader aria-hidden="true" class="page-loader-canvas"></canvas>
         <div class="page-loader-content">
@@ -133,7 +133,7 @@
                 const isDark = theme === 'dark';
                 document.documentElement.classList.toggle('dark', isDark);
                 button.setAttribute('aria-label', isDark ? 'Aktifkan tema terang' : 'Aktifkan tema gelap');
-                meta.setAttribute('content', isDark ? '#111a17' : '#f6f7f2');
+                meta.setAttribute('content', isDark ? '#111a17' : '#f4f7fb');
             };
             applyTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
             button.addEventListener('click', () => {

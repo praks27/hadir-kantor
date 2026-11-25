@@ -20,9 +20,9 @@
         <form method="POST" action="{{ route('password.email') }}" class="mt-7 space-y-5">
             @csrf
             <label class="block text-sm font-semibold text-slate-700">Email
-                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus class="mt-2 w-full rounded-xl border border-slate-300 bg-[#fbfcf9] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10" placeholder="nama@contoh.com">
+                <input type="email" name="email" value="{{ old('email') }}" autocomplete="email" required autofocus class="mt-2 w-full rounded-xl border border-slate-300 bg-[#f9fbfe] px-4 py-3.5 font-normal outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10" placeholder="nama@contoh.com">
             </label>
-            <button class="w-full rounded-xl bg-[#567765] px-5 py-3.5 font-semibold text-white transition hover:bg-emerald-900">Kirim tautan pemulihan</button>
+            <button class="w-full rounded-xl bg-[#5b84a8] px-5 py-3.5 font-semibold text-white transition hover:bg-emerald-900">Kirim tautan pemulihan</button>
         </form>
         <p class="mt-6 text-xs leading-5 text-slate-400">Email harus sudah terdaftar pada akun Anda. Jika belum memiliki email di akun, hubungi administrator untuk memperbaruinya.</p>
     </section>

@@ -5,7 +5,7 @@
 
 @section('content')
 <section class="mt-7 grid gap-5 xl:grid-cols-[.7fr_1.3fr]">
-    <div class="hover-lift rounded-3xl bg-gradient-to-br from-[#648472] to-[#4d6d5b] p-6 text-white sm:p-8">
+    <div class="hover-lift rounded-3xl bg-gradient-to-br from-[#7097b8] to-[#557d9f] p-6 text-white sm:p-8">
         <span class="rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#d5f5a0]">Pengaturan global</span>
         <h2 class="mt-5 font-display text-2xl font-bold">Kelola semua lokasi kerja.</h2>
         <p class="mt-3 text-sm leading-6 text-white/70">Setiap kantor memiliki koordinat, radius absensi, dan jadwalnya sendiri. Karyawan memilih kantor saat absensi masuk dan mengajukan izin.</p>
@@ -28,7 +28,7 @@
             @php($selectedDays = old('work_days', $setting->work_days ?? []))
             <fieldset class="sm:col-span-2"><legend class="text-sm font-semibold text-slate-700">Hari kerja</legend><div class="mt-3 flex flex-wrap gap-2">@foreach ($days as $day)<label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-600 has-[:checked]:border-emerald-700 has-[:checked]:bg-emerald-50 has-[:checked]:text-emerald-900"><input type="checkbox" name="work_days[]" value="{{ $day }}" @checked(in_array($day, $selectedDays, true)) class="rounded border-slate-300 text-emerald-800 focus:ring-emerald-700">{{ $day }}</label>@endforeach</div></fieldset>
         </div>
-        <div class="mt-7 flex justify-end"><button class="inline-flex items-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="check" class="h-4 w-4"/> {{ $editingOffice ? 'Simpan perubahan' : 'Tambah kantor' }}</button></div>
+        <div class="mt-7 flex justify-end"><button class="inline-flex items-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="check" class="h-4 w-4"/> {{ $editingOffice ? 'Simpan perubahan' : 'Tambah kantor' }}</button></div>
     </form>
 </section>
 

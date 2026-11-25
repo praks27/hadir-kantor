@@ -186,7 +186,7 @@
                 <p class="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">Belum ada departemen untuk diatur.</p>
             @endforelse
         </section>
-        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5"><p class="text-xs text-slate-500">Urutan Kantor, SPBU, dan LPG dibatasi menurut tingkat pemohon. Tahap dapat dilewati jika operasional memerlukannya.</p><button class="inline-flex items-center gap-2 rounded-xl bg-[#567765] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="check" class="h-4 w-4"/> Simpan semua alur</button></div>
+        <div class="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5"><p class="text-xs text-slate-500">Urutan Kantor, SPBU, dan LPG dibatasi menurut tingkat pemohon. Tahap dapat dilewati jika operasional memerlukannya.</p><button class="inline-flex items-center gap-2 rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-900"><x-icon name="check" class="h-4 w-4"/> Simpan semua alur</button></div>
     </form>
 </section>
 <script>
