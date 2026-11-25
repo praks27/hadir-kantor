@@ -14,7 +14,7 @@
 @endphp
 
 <aside data-sidebar-scroll class="no-print hidden w-[260px] shrink-0 border-r border-slate-200/80 bg-white p-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:overflow-y-auto">
-    <a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-display text-lg font-extrabold tracking-tight"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#567765] text-white shadow-sm">H</span> HadirKantor</a>
+    <a href="{{ route('dashboard') }}" class="flex items-center gap-3 font-display text-lg font-extrabold tracking-tight"><span class="grid h-10 w-10 place-items-center rounded-xl bg-[#567765] text-white shadow-sm">H</span> HRIS TAT</a>
 
     <p class="mb-3 mt-10 px-3 text-[11px] font-bold uppercase tracking-[.18em] text-slate-400">Menu utama</p>
     <a href="{{ route('dashboard') }}" @if (request()->routeIs('dashboard')) aria-current="page" data-active-menu @endif class="{{ $linkClass }} {{ request()->routeIs('dashboard') ? $activeClass : $inactiveClass }}"><x-icon name="dashboard" class="h-4 w-4"/> Dashboard</a>

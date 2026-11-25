@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="theme-color" content="#f6f7f2" id="theme-color-meta">
-    <title>@yield('title', 'Hadir Kantor') · HadirKantor</title>
+    <title>@yield('title', config('app.name')) · {{ config('app.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         (() => {
@@ -59,7 +59,7 @@
         <canvas data-three-loader aria-hidden="true" class="page-loader-canvas"></canvas>
         <div class="page-loader-content">
             <span class="page-loader-mark" aria-hidden="true">H</span>
-            <p class="page-loader-title">HadirKantor</p>
+            <p class="page-loader-title">{{ config('app.name') }}</p>
             <p class="page-loader-caption">Menyiapkan halaman Anda</p>
             <div class="page-loader-meter">
                 <span data-loader-walker class="page-loader-walker" aria-hidden="true">

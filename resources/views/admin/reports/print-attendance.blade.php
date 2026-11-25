@@ -7,7 +7,7 @@
     </style>
 </head>
 <body><main class="sheet">
-    <div class="top"><div><div class="eyebrow">HadirKantor · Laporan</div><h1>Detail Absensi Karyawan</h1><div class="muted">Periode {{ \Illuminate\Support\Carbon::parse($filters['from'])->translatedFormat('d M Y') }} – {{ \Illuminate\Support\Carbon::parse($filters['to'])->translatedFormat('d M Y') }}</div></div><div class="actions"><button type="button" onclick="window.print()">Cetak / Simpan PDF</button></div></div>
+    <div class="top"><div><div class="eyebrow">HRIS TAT · Laporan</div><h1>Detail Absensi Karyawan</h1><div class="muted">Periode {{ \Illuminate\Support\Carbon::parse($filters['from'])->translatedFormat('d M Y') }} – {{ \Illuminate\Support\Carbon::parse($filters['to'])->translatedFormat('d M Y') }}</div></div><div class="actions"><button type="button" onclick="window.print()">Cetak / Simpan PDF</button></div></div>
     <div class="meta"><div>Lokasi filter<strong>{{ $officeName }}</strong></div><div>Status<strong>{{ $filters['status'] ?: 'Semua status' }}</strong></div><div>Karyawan<strong>{{ $filters['q'] ?: 'Semua karyawan' }}</strong></div><div>Jumlah catatan<strong>{{ number_format($records->count()) }}</strong></div></div>
     <table><thead><tr><th>Tanggal</th><th>Karyawan</th><th>NIK / Departemen</th><th>Absen masuk</th><th>Absen pulang</th><th>Status</th></tr></thead><tbody>
     @forelse ($records as $row)
