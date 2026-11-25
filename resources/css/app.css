@@ -176,12 +176,13 @@ html.dark .theme-icon-dark { display: block; }
 .brand-logo {
     transform-origin: center;
     animation: brand-logo-float 3.8s ease-in-out infinite;
-    transition: filter 180ms ease;
+    transition: transform 220ms ease-out, filter 180ms ease;
 }
 a:hover .brand-logo { filter: drop-shadow(0 4px 8px rgb(53 116 166 / 35%)); }
+a:active .brand-logo { --brand-scale: .94; }
 @keyframes brand-logo-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-2px) rotate(-2deg); }
+    0%, 100% { transform: translateY(0) perspective(500px) rotateX(var(--brand-tilt-x, 0deg)) rotateY(var(--brand-tilt-y, 0deg)) rotate(0deg) scale(var(--brand-scale, 1)); }
+    50% { transform: translateY(-2px) perspective(500px) rotateX(var(--brand-tilt-x, 0deg)) rotateY(var(--brand-tilt-y, 0deg)) rotate(-2deg) scale(var(--brand-scale, 1)); }
 }
 
 .page-loader { 

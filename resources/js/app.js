@@ -1,3 +1,27 @@
+const logoMotionEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (logoMotionEnabled) {
+    document.querySelectorAll('.brand-logo').forEach((logo) => {
+        logo.addEventListener('pointermove', (event) => {
+            if (event.pointerType !== 'mouse') return;
+
+            const bounds = logo.getBoundingClientRect();
+            const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
+            const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+            logo.style.setProperty('--brand-tilt-x', `${-vertical * 14}deg`);
+            logo.style.setProperty('--brand-tilt-y', `${horizontal * 14}deg`);
+            logo.style.setProperty('--brand-scale', '1.08');
+        });
+
+        logo.addEventListener('pointerleave', () => {
+            logo.style.removeProperty('--brand-tilt-x');
+            logo.style.removeProperty('--brand-tilt-y');
+            logo.style.removeProperty('--brand-scale');
+        });
+    });
+}
+
 let sidebarAutoScrollFrame = 0;
 
 const cancelSidebarAutoScroll = () => {
