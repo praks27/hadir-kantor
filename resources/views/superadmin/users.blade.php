@@ -101,10 +101,10 @@
     <section class="min-w-0 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div><p class="text-sm font-semibold text-slate-500">Direktori pengguna</p><h2 class="mt-0.5 font-display text-xl font-bold text-slate-900">Data karyawan</h2><p class="mt-1 text-sm text-slate-500">Menampilkan {{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }} dari {{ number_format($users->total()) }} akun.</p></div>
-            <form method="GET" role="search" class="flex w-full min-w-0 flex-col gap-2 sm:flex-row lg:max-w-lg">
+            <form id="user-search-form" method="GET" role="search" class="flex w-full min-w-0 flex-col gap-2 sm:flex-row lg:max-w-lg">
                 <label for="user-search" class="sr-only">Cari pengguna</label>
-                <div class="relative min-w-0 flex-1"><x-icon name="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"/><input id="user-search" name="q" value="{{ request('q') }}" placeholder="Cari nama, username, atau NIK" class="w-full min-w-0 rounded-xl border border-slate-300 py-3 pl-9 pr-3 text-sm outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10"></div>
-                <div class="flex gap-2"><button class="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 sm:flex-none">Cari</button>@if (request()->filled('q'))<a href="{{ route('superadmin.users') }}" class="flex-1 rounded-xl px-4 py-3 text-center text-sm font-semibold text-slate-500 hover:bg-slate-100 sm:flex-none">Reset</a>@endif</div>
+                <div class="relative min-w-0 flex-1"><x-icon name="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"/><input id="user-search" type="search" name="q" value="{{ request('q') }}" placeholder="Cari nama, username, atau NIK" autocomplete="off" class="w-full min-w-0 rounded-xl border border-slate-300 py-3 pl-9 pr-3 text-sm outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-700/10"></div>
+                @if (request()->filled('q'))<a href="{{ route('superadmin.users') }}" class="rounded-xl px-4 py-3 text-center text-sm font-semibold text-slate-500 hover:bg-slate-100">Reset</a>@endif
             </form>
         </div>
 
@@ -232,6 +232,34 @@
                 if (event.target === dialog) dialog.close();
             });
         });
+
+        const searchForm = document.getElementById('user-search-form');
+        const searchInput = document.getElementById('user-search');
+        if (searchForm && searchInput) {
+            let searchTimer;
+            let isComposing = false;
+            let submittedQuery = searchInput.value.trim();
+
+            const submitSearch = () => {
+                const query = searchInput.value.trim();
+                if (query === submittedQuery) return;
+                searchInput.value = query;
+                submittedQuery = query;
+                searchForm.requestSubmit();
+            };
+
+            searchInput.addEventListener('compositionstart', () => { isComposing = true; });
+            searchInput.addEventListener('compositionend', () => {
+                isComposing = false;
+                window.clearTimeout(searchTimer);
+                searchTimer = window.setTimeout(submitSearch, 350);
+            });
+            searchInput.addEventListener('input', () => {
+                if (isComposing) return;
+                window.clearTimeout(searchTimer);
+                searchTimer = window.setTimeout(submitSearch, 350);
+            });
+        }
     })();
 </script>
 @endsection
