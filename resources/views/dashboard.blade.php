@@ -27,18 +27,18 @@
                 <div class="my-7 grid w-full max-w-lg grid-cols-2 gap-3"><div class="flex min-h-24 flex-col justify-between rounded-2xl border border-white/10 bg-white/[.07] p-4"><p class="text-xs text-white/65">Jam masuk</p><p class="font-display text-2xl font-bold tabular-nums">{{ $attendance?->check_in?->format('H:i') ?? '--:--' }}</p></div><div class="flex min-h-24 flex-col justify-between rounded-2xl border border-white/10 bg-white/[.07] p-4"><p class="text-xs text-white/65">Jam pulang</p><p class="font-display text-2xl font-bold tabular-nums">{{ $attendance?->check_out?->format('H:i') ?? '--:--' }}</p></div></div>
                 <div class="flex flex-wrap gap-3">
                     @if (! $attendance)
-                        <form method="POST" action="{{ route('attendance.check-in') }}" id="check-in-form" enctype="multipart/form-data" class="flex flex-wrap items-start gap-3">
+                        <form method="POST" action="{{ route('attendance.check-in') }}" id="check-in-form" enctype="multipart/form-data" novalidate class="flex flex-wrap items-start gap-3">
                             @csrf<input type="hidden" name="latitude"><input type="hidden" name="longitude">
                             <label class="block min-w-52 text-xs font-semibold text-white/75">Lokasi kerja<select name="office_id" required class="mt-2 w-full rounded-xl border border-white/20 bg-white px-3 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:ring-4 focus:ring-white/20"><option value="">Pilih lokasi kerja</option>@foreach ($offices as $workplace)<option value="{{ $workplace->id }}" @selected((string) old('office_id') === (string) $workplace->id)>{{ $workplace->name }}</option>@endforeach</select></label>
-                            <label for="check-in-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi masuk <span class="text-white/60">(wajib)</span><input id="check-in-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-in-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-in-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span>@error('photo')<span role="alert" class="mt-1 block font-semibold text-rose-100">{{ $message }}</span>@enderror</label>
+                            <label for="check-in-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi masuk <span class="text-white/60">(wajib)</span><input id="check-in-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-in-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-in-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span></label>
                             @if ($offices->isEmpty())<p class="text-sm text-white/80">Lokasi kerja belum tersedia. Hubungi superadmin.</p>@endif
                             <button type="button" @disabled($offices->isEmpty()) onclick="submitAttendance('check-in-form')" class="group inline-flex self-start items-center gap-2 rounded-xl bg-[#e5eff8] px-5 py-3 text-sm font-bold text-[#355773] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 sm:self-end">Catat masuk <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"/></button>
                         </form>
                     @elseif (! $attendance->check_out)
-                        <form method="POST" action="{{ route('attendance.check-out') }}" id="check-out-form" enctype="multipart/form-data" class="flex flex-wrap items-start gap-3">
+                        <form method="POST" action="{{ route('attendance.check-out') }}" id="check-out-form" enctype="multipart/form-data" novalidate class="flex flex-wrap items-start gap-3">
                             @csrf<input type="hidden" name="latitude"><input type="hidden" name="longitude">
                             <label class="block min-w-52 text-xs font-semibold text-white/75">Lokasi pulang<select name="office_id" required class="mt-2 w-full rounded-xl border border-white/20 bg-white px-3 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:ring-4 focus:ring-white/20"><option value="">Pilih lokasi kerja</option>@foreach ($offices as $workplace)<option value="{{ $workplace->id }}" @selected((string) old('office_id') === (string) $workplace->id)>{{ $workplace->name }}</option>@endforeach</select></label>
-                            <label for="check-out-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi pulang <span class="text-white/60">(wajib)</span><input id="check-out-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-out-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-out-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span>@error('photo')<span role="alert" class="mt-1 block font-semibold text-rose-100">{{ $message }}</span>@enderror</label>
+                            <label for="check-out-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi pulang <span class="text-white/60">(wajib)</span><input id="check-out-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-out-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-out-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span></label>
                             <button type="button" onclick="submitAttendance('check-out-form')" class="group inline-flex self-start items-center gap-2 rounded-xl bg-[#e5eff8] px-5 py-3 text-sm font-bold text-[#355773] transition hover:bg-white sm:self-end">Catat pulang <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"/></button>
                         </form>
                     @else
@@ -91,12 +91,38 @@
         const message = document.getElementById('location-message');
         const button = form?.querySelector('button[type="button"]');
         if (!form || !message || attendanceSubmissions.has(formId)) return;
-        if (!form.reportValidity()) return;
-        if (!window.isSecureContext) {
-            message.textContent = 'Fitur lokasi memerlukan koneksi HTTPS. Buka website melalui alamat HTTPS.';
+        const officeInput = form.elements.office_id;
+        if (!officeInput.value) {
+            window.showAppToast('Pilih lokasi kerja sebelum mencatat absensi.', 'error', { focus: true });
+            officeInput.focus();
             return;
         }
-        if (!navigator.geolocation) { message.textContent = 'Browser ini tidak mendukung akses lokasi.'; return; }
+        const photoInput = form.elements.photo;
+        const photo = photoInput.files?.[0];
+        if (!photo) {
+            window.showAppToast('Ambil atau pilih foto untuk mencatat absensi.', 'error', { focus: true });
+            photoInput.focus();
+            return;
+        }
+        const allowedPhotoTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        if (!allowedPhotoTypes.includes(photo.type)) {
+            window.showAppToast('Format foto harus JPG, JPEG, PNG, atau WEBP.', 'error', { focus: true });
+            photoInput.focus();
+            return;
+        }
+        if (photo.size > 2 * 1024 * 1024) {
+            window.showAppToast('Ukuran foto maksimal 2 MB.', 'error', { focus: true });
+            photoInput.focus();
+            return;
+        }
+        if (!window.isSecureContext) {
+            window.showAppToast('Fitur lokasi memerlukan koneksi HTTPS. Buka website melalui alamat HTTPS.', 'error', { focus: true });
+            return;
+        }
+        if (!navigator.geolocation) {
+            window.showAppToast('Browser ini tidak mendukung akses lokasi.', 'error', { focus: true });
+            return;
+        }
         attendanceSubmissions.add(formId);
         if (button) button.disabled = true;
         message.textContent = 'Sedang mengambil lokasi...';
@@ -110,7 +136,7 @@
                 2: 'Lokasi tidak dapat ditemukan. Aktifkan GPS/lokasi perangkat dan coba lagi.',
                 3: 'Pengambilan lokasi terlalu lama. Pastikan GPS aktif dan coba lagi.',
             };
-            message.textContent = messages[error.code] ?? 'Lokasi gagal diperoleh. Periksa izin lokasi browser dan coba lagi.';
+            window.showAppToast(messages[error.code] ?? 'Lokasi gagal diperoleh. Periksa izin lokasi browser dan coba lagi.', 'error', { focus: true });
             attendanceSubmissions.delete(formId);
             if (button) button.disabled = false;
         }, { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 });
