@@ -9,7 +9,7 @@ class Attendance extends Model
 {
     protected $fillable = [
         'user_id', 'office_id', 'check_out_office_id', 'attendance_date', 'check_in', 'check_out', 'latitude', 'longitude', 'distance_meters',
-        'check_out_latitude', 'check_out_longitude', 'check_out_distance_meters', 'status',
+        'check_out_latitude', 'check_out_longitude', 'check_out_distance_meters', 'check_in_photo_path', 'check_out_photo_path', 'status',
     ];
 
     protected function casts(): array

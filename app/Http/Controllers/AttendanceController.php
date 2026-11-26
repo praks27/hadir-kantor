@@ -7,16 +7,13 @@ use App\Models\OfficeSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AttendanceController extends Controller
 {
     public function checkIn(Request $request): RedirectResponse
     {
-        $data = $request->validate([
-            'office_id' => ['required', 'integer', 'exists:office_settings,id'],
-            'latitude' => ['required', 'numeric', 'between:-90,90'],
-            'longitude' => ['required', 'numeric', 'between:-180,180'],
-        ]);
+        $data = $this->validateAttendance($request);
         $settings = OfficeSetting::findOrFail($data['office_id']);
         $workDays = $settings->work_days ?? [];
         $dayName = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'][now()->dayOfWeekIso - 1];
@@ -30,10 +27,19 @@ class AttendanceController extends Controller
         }
 
         $today = now()->toDateString();
+        $photoPath = $data['photo']->store('attendance-photos', 'local');
+        if (! $photoPath) {
+            return back()->withErrors(['photo' => 'Foto gagal disimpan. Silakan coba lagi.']);
+        }
+
         $attendance = Attendance::firstOrCreate(
             ['user_id' => Auth::id(), 'attendance_date' => $today],
-            ['office_id' => $settings->id, 'check_in' => now(), 'latitude' => $data['latitude'], 'longitude' => $data['longitude'], 'distance_meters' => $distance, 'status' => now()->gt(today()->setTimeFromTimeString($settings['start_time'])->addMinutes($settings['grace_minutes'])) ? 'Terlambat' : 'Tepat Waktu']
+            ['office_id' => $settings->id, 'check_in' => now(), 'latitude' => $data['latitude'], 'longitude' => $data['longitude'], 'distance_meters' => $distance, 'check_in_photo_path' => $photoPath, 'status' => now()->gt(today()->setTimeFromTimeString($settings['start_time'])->addMinutes($settings['grace_minutes'])) ? 'Terlambat' : 'Tepat Waktu']
         );
+
+        if (! $attendance->wasRecentlyCreated) {
+            Storage::disk('local')->delete($photoPath);
+        }
 
         return $attendance->wasRecentlyCreated
             ? back()->with('status', 'Absensi masuk berhasil dicatat.')
@@ -42,11 +48,7 @@ class AttendanceController extends Controller
 
     public function checkOut(Request $request): RedirectResponse
     {
-        $data = $request->validate([
-            'office_id' => ['required', 'integer', 'exists:office_settings,id'],
-            'latitude' => ['required', 'numeric', 'between:-90,90'],
-            'longitude' => ['required', 'numeric', 'between:-180,180'],
-        ]);
+        $data = $this->validateAttendance($request);
         $attendance = Attendance::where('user_id', Auth::id())->where('attendance_date', now()->toDateString())->first();
         if (! $attendance || ! $attendance->check_in) {
             return back()->withErrors(['attendance' => 'Catat absensi masuk terlebih dahulu.']);
@@ -61,15 +63,37 @@ class AttendanceController extends Controller
             return back()->withErrors(['attendance' => 'Lokasi Anda berada di luar radius kantor.']);
         }
 
+        $photoPath = $data['photo']->store('attendance-photos', 'local');
+        if (! $photoPath) {
+            return back()->withErrors(['photo' => 'Foto gagal disimpan. Silakan coba lagi.']);
+        }
+
         $attendance->update([
             'check_out_office_id' => $settings->id,
             'check_out' => now(),
             'check_out_latitude' => $data['latitude'],
             'check_out_longitude' => $data['longitude'],
             'check_out_distance_meters' => $distance,
+            'check_out_photo_path' => $photoPath,
         ]);
 
         return back()->with('status', 'Absensi pulang berhasil dicatat.');
+    }
+
+    /** @return array<string, mixed> */
+    private function validateAttendance(Request $request): array
+    {
+        return $request->validate([
+            'office_id' => ['required', 'integer', 'exists:office_settings,id'],
+            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
+            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+        ], [
+            'photo.required' => 'Foto wajib diunggah untuk mencatat absensi.',
+            'photo.image' => 'File yang diunggah harus berupa gambar.',
+            'photo.mimes' => 'Format foto harus JPG, JPEG, PNG, atau WEBP.',
+            'photo.max' => 'Ukuran foto maksimal 2 MB.',
+        ]);
     }
 
     private function distance(float $lat1, float $lon1, float $lat2, float $lon2): float
