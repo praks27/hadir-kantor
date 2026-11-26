@@ -30,7 +30,7 @@
                         <form method="POST" action="{{ route('attendance.check-in') }}" id="check-in-form" enctype="multipart/form-data" novalidate class="flex flex-wrap items-start gap-3">
                             @csrf<input type="hidden" name="latitude"><input type="hidden" name="longitude">
                             <label class="block min-w-52 text-xs font-semibold text-white/75">Lokasi kerja<select name="office_id" required class="mt-2 w-full rounded-xl border border-white/20 bg-white px-3 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:ring-4 focus:ring-white/20"><option value="">Pilih lokasi kerja</option>@foreach ($offices as $workplace)<option value="{{ $workplace->id }}" @selected((string) old('office_id') === (string) $workplace->id)>{{ $workplace->name }}</option>@endforeach</select></label>
-                            <label for="check-in-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi masuk <span class="text-white/60">(wajib)</span><input id="check-in-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-in-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-in-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span></label>
+                            <div class="block min-w-52 flex-1 text-xs font-semibold text-white/75"><span class="block">Foto absensi masuk <span class="text-white/60">(wajib)</span></span><input id="check-in-photo" type="file" name="photo" accept="image/jpeg" required aria-label="Foto absensi masuk" tabindex="-1" hidden><button type="button" onclick="openAttendanceCamera('check-in-form')" class="mt-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-left text-xs font-semibold text-white transition hover:bg-white/20">Ambil foto langsung</button><span id="check-in-photo-help" data-photo-status class="mt-1 block font-normal text-white/65" role="status">Belum ada foto</span><img data-photo-preview alt="Pratinjau foto absensi masuk" class="mt-2 hidden h-16 w-16 rounded-xl border border-white/20 object-cover"></div>
                             @if ($offices->isEmpty())<p class="text-sm text-white/80">Lokasi kerja belum tersedia. Hubungi superadmin.</p>@endif
                             <button type="button" @disabled($offices->isEmpty()) onclick="submitAttendance('check-in-form')" class="group inline-flex self-start items-center gap-2 rounded-xl bg-[#e5eff8] px-5 py-3 text-sm font-bold text-[#355773] transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 sm:self-end">Catat masuk <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"/></button>
                         </form>
@@ -38,7 +38,7 @@
                         <form method="POST" action="{{ route('attendance.check-out') }}" id="check-out-form" enctype="multipart/form-data" novalidate class="flex flex-wrap items-start gap-3">
                             @csrf<input type="hidden" name="latitude"><input type="hidden" name="longitude">
                             <label class="block min-w-52 text-xs font-semibold text-white/75">Lokasi pulang<select name="office_id" required class="mt-2 w-full rounded-xl border border-white/20 bg-white px-3 py-2.5 text-sm font-semibold text-slate-800 outline-none focus:ring-4 focus:ring-white/20"><option value="">Pilih lokasi kerja</option>@foreach ($offices as $workplace)<option value="{{ $workplace->id }}" @selected((string) old('office_id') === (string) $workplace->id)>{{ $workplace->name }}</option>@endforeach</select></label>
-                            <label for="check-out-photo" class="block min-w-52 flex-1 text-xs font-semibold text-white/75">Foto absensi pulang <span class="text-white/60">(wajib)</span><input id="check-out-photo" type="file" name="photo" accept="image/jpeg,image/png,image/webp" capture="user" required aria-describedby="check-out-photo-help" class="mt-2 block w-full rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs text-white file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-[#355773]"><span id="check-out-photo-help" class="mt-1 block font-normal text-white/65">JPG, PNG, WEBP · maksimal 2 MB</span></label>
+                            <div class="block min-w-52 flex-1 text-xs font-semibold text-white/75"><span class="block">Foto absensi pulang <span class="text-white/60">(wajib)</span></span><input id="check-out-photo" type="file" name="photo" accept="image/jpeg" required aria-label="Foto absensi pulang" tabindex="-1" hidden><button type="button" onclick="openAttendanceCamera('check-out-form')" class="mt-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-left text-xs font-semibold text-white transition hover:bg-white/20">Ambil foto langsung</button><span id="check-out-photo-help" data-photo-status class="mt-1 block font-normal text-white/65" role="status">Belum ada foto</span><img data-photo-preview alt="Pratinjau foto absensi pulang" class="mt-2 hidden h-16 w-16 rounded-xl border border-white/20 object-cover"></div>
                             <button type="button" onclick="submitAttendance('check-out-form')" class="group inline-flex self-start items-center gap-2 rounded-xl bg-[#e5eff8] px-5 py-3 text-sm font-bold text-[#355773] transition hover:bg-white sm:self-end">Catat pulang <x-icon name="arrow-right" class="h-4 w-4 transition-transform group-hover:translate-x-1"/></button>
                         </form>
                     @else
@@ -50,6 +50,17 @@
             @endif
             <div class="hover-lift rounded-3xl border border-slate-200/80 bg-white/85 p-6 shadow-sm sm:p-7"><div class="flex items-center justify-between"><div><p class="text-sm font-medium text-slate-500">Profil karyawan</p><h2 class="mt-1 font-display text-xl font-bold">Informasi Anda</h2></div><span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Aktif</span></div><div class="mt-6 space-y-4"><div class="border-b border-slate-100 pb-3"><p class="text-xs text-slate-400">Nama lengkap</p><p class="mt-1 text-sm font-semibold">{{ auth()->user()->name }}</p></div><div class="border-b border-slate-100 pb-3"><p class="text-xs text-slate-400">NIK karyawan</p><p class="mt-1 text-sm font-semibold">{{ auth()->user()->nik ?: 'Belum diatur' }}</p></div><div class="border-b border-slate-100 pb-3"><p class="text-xs text-slate-400">Departemen</p><p class="mt-1 text-sm font-semibold">{{ auth()->user()->department?->name ?: 'Belum ditentukan' }}</p></div><div><p class="text-xs text-slate-400">Jabatan</p><p class="mt-1 text-sm font-semibold">{{ auth()->user()->position ?: 'Belum diatur' }}</p></div></div></div>
         </section>
+
+        <dialog id="attendance-camera-dialog" class="employee-user-dialog m-auto w-[calc(100%-2rem)] max-w-lg overflow-hidden rounded-3xl p-0 shadow-2xl backdrop:bg-slate-950/70">
+            <div class="flex items-start justify-between gap-4 border-b border-slate-100 p-5">
+                <div><p class="text-sm font-semibold text-sky-800">Foto absensi langsung</p><h2 class="mt-1 font-display text-xl font-bold text-slate-900">Ambil foto sekarang</h2><p class="mt-1 text-sm text-slate-500">Posisikan wajah di dalam bingkai, lalu ambil foto.</p></div>
+                <button type="button" data-close-attendance-camera class="rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50">Tutup</button>
+            </div>
+            <div class="p-5">
+                <video id="attendance-camera-video" autoplay muted playsinline class="-scale-x-100 aspect-video w-full rounded-2xl bg-slate-950 object-cover"></video>
+                <button id="take-attendance-photo" type="button" class="mt-4 w-full rounded-xl bg-[#5b84a8] px-5 py-3 text-sm font-bold text-white transition hover:bg-sky-900">Ambil foto</button>
+            </div>
+        </dialog>
 
         @if ($leaveBalanceSummary)
         <section class="mt-7 rounded-3xl border border-emerald-100 bg-white p-5 shadow-sm sm:p-6">
@@ -85,7 +96,93 @@
 <script>
     const clock = document.getElementById('clock');
     setInterval(() => { if (clock) clock.textContent = new Intl.DateTimeFormat('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date()); }, 1000);
-    const attendanceSubmissions = new Set();
+        const attendanceSubmissions = new Set();
+        const cameraDialog = document.getElementById('attendance-camera-dialog');
+        const cameraVideo = document.getElementById('attendance-camera-video');
+        const capturePhotoButton = document.getElementById('take-attendance-photo');
+        let cameraStream = null;
+        let cameraFormId = null;
+
+        function stopAttendanceCamera() {
+            cameraStream?.getTracks().forEach((track) => track.stop());
+            cameraStream = null;
+            if (cameraVideo) cameraVideo.srcObject = null;
+        }
+
+        async function openAttendanceCamera(formId) {
+            if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+                window.showAppToast('Kamera memerlukan browser yang mendukung akses kamera melalui HTTPS.', 'error', { focus: true });
+                return;
+            }
+
+            cameraFormId = formId;
+            cameraDialog.showModal();
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: { facingMode: { ideal: 'user' }, width: { ideal: 1600 }, height: { ideal: 1200 } },
+                });
+                cameraVideo.srcObject = cameraStream;
+                await cameraVideo.play();
+            } catch (error) {
+                cameraDialog.close();
+                const message = error.name === 'NotAllowedError'
+                    ? 'Izin kamera ditolak. Izinkan akses kamera untuk mengambil foto absensi.'
+                    : 'Kamera tidak dapat dibuka. Pastikan kamera tersedia dan tidak sedang digunakan aplikasi lain.';
+                window.showAppToast(message, 'error', { focus: true });
+            }
+        }
+
+        document.querySelector('[data-close-attendance-camera]')?.addEventListener('click', () => cameraDialog.close());
+        cameraDialog?.addEventListener('click', (event) => {
+            if (event.target === cameraDialog) cameraDialog.close();
+        });
+        cameraDialog?.addEventListener('close', stopAttendanceCamera);
+        capturePhotoButton?.addEventListener('click', async () => {
+            if (!cameraVideo.videoWidth || !cameraVideo.videoHeight || !cameraFormId) {
+                window.showAppToast('Kamera belum siap. Tunggu sebentar lalu coba lagi.', 'error', { focus: true });
+                return;
+            }
+
+            const maxDimension = 1600;
+            const scale = Math.min(1, maxDimension / Math.max(cameraVideo.videoWidth, cameraVideo.videoHeight));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(cameraVideo.videoWidth * scale);
+            canvas.height = Math.round(cameraVideo.videoHeight * scale);
+            const context = canvas.getContext('2d');
+            context.translate(canvas.width, 0);
+            context.scale(-1, 1);
+            context.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
+
+            const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+            if (!blob || blob.size > 2 * 1024 * 1024) {
+                window.showAppToast('Foto terlalu besar. Dekatkan kamera dan ambil foto kembali.', 'error', { focus: true });
+                return;
+            }
+
+            const form = document.getElementById(cameraFormId);
+            const photoInput = form?.elements.photo;
+            if (!photoInput) return;
+
+            const photoFile = new File([blob], `absensi-${Date.now()}.jpg`, { type: 'image/jpeg' });
+            const transfer = new DataTransfer();
+            transfer.items.add(photoFile);
+            photoInput.files = transfer.files;
+
+            const status = form.querySelector('[data-photo-status]');
+            const preview = form.querySelector('[data-photo-preview]');
+            if (preview) {
+                if (preview.dataset.previewUrl) URL.revokeObjectURL(preview.dataset.previewUrl);
+                preview.dataset.previewUrl = URL.createObjectURL(photoFile);
+                preview.src = preview.dataset.previewUrl;
+                preview.classList.remove('hidden');
+            }
+            if (status) status.textContent = 'Foto langsung siap digunakan.';
+            const cameraButton = form.querySelector('[onclick^="openAttendanceCamera"]');
+            if (cameraButton) cameraButton.textContent = 'Ambil ulang foto';
+            cameraDialog.close();
+        });
+
     function submitAttendance(formId) {
         const form = document.getElementById(formId);
         const message = document.getElementById('location-message');
@@ -104,9 +201,8 @@
             photoInput.focus();
             return;
         }
-        const allowedPhotoTypes = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!allowedPhotoTypes.includes(photo.type)) {
-            window.showAppToast('Format foto harus JPG, JPEG, PNG, atau WEBP.', 'error', { focus: true });
+        if (photo.type !== 'image/jpeg') {
+            window.showAppToast('Foto harus diambil langsung menggunakan kamera.', 'error', { focus: true });
             photoInput.focus();
             return;
         }

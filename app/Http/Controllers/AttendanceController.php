@@ -87,11 +87,11 @@ class AttendanceController extends Controller
             'office_id' => ['required', 'integer', 'exists:office_settings,id'],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
             'longitude' => ['required', 'numeric', 'between:-180,180'],
-            'photo' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'photo' => ['required', 'image', 'mimes:jpeg', 'max:2048'],
         ], [
             'photo.required' => 'Foto wajib diunggah untuk mencatat absensi.',
             'photo.image' => 'File yang diunggah harus berupa gambar.',
-            'photo.mimes' => 'Format foto harus JPG, JPEG, PNG, atau WEBP.',
+            'photo.mimes' => 'Foto absensi harus berupa JPEG dari kamera.',
             'photo.max' => 'Ukuran foto maksimal 2 MB.',
         ]);
     }
